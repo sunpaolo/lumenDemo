@@ -15,7 +15,16 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
-$api = app('Dingo\Api\Routing\Router');
+$api = $app['api.router']; //app('Dingo\Api\Routing\Router');
 $api->version('v1', function($api) {
-    return 'Welcome';
+    $api->get('hello', function(){
+        //return ['name' => 'paolo'];
+        return config('api');
+    });
 });
+
+//$app->group(['namespace' => 'App\Http\Controllers'], function() use ($app){
+    $app->get('index', [
+        'uses' => 'ExampleController@index'
+    ]);
+//});
